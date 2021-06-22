@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 public class HotelModel {
-	
+
 	String hotel_name;
 	Boolean availability;
 	int price;
@@ -24,5 +24,4 @@ public class HotelModel {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
 }
