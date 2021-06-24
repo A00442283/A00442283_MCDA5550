@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 public class GuestModel {
+	private int id;
 	private String guest_name;
 	private GenderModel gender;
 	

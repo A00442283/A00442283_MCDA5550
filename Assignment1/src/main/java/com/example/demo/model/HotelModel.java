@@ -1,7 +1,8 @@
 package com.example.demo.model;
 
 public class HotelModel {
-
+	
+	private Long id;
 	String hotel_name;
 	Boolean availability;
 	int price;
