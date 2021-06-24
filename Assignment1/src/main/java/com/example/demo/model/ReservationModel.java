@@ -5,11 +5,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.*;
+import com.example.demo.model.*;
+
+@Entity
+@Table(name = "ReservationModel")
 public class ReservationModel {
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reservationID;
 	private Date checkin;
 	private Date checkout;
+	
+	@OneToMany(targetEntity=GuestModel.class,cascade = {CascadeType.ALL})
 	private List<GuestModel> guests_list;
 	
 	public int getReservationID() {

@@ -1,7 +1,14 @@
 package com.example.demo.model;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "HotelModel")
 public class HotelModel {
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	String hotel_name;
 	Boolean availability;
