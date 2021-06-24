@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.*;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.HotelReservationModel;
 
 
 @RestController
@@ -15,7 +16,8 @@ public class HotelController {
 	
 	@PostMapping("/reservation")
 	@ResponseBody
-	public String reservationConfirmation(@RequestBody String h ) {
+	public HotelReservationModel reservationConfirmation(@RequestBody HotelReservationModel h) {
+		
 		return h;
 	}
 	
