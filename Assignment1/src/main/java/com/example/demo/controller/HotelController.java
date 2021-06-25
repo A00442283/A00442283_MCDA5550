@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 
@@ -13,14 +14,14 @@ import com.example.demo.repository.*;
 public class HotelController {
 	
 	@Autowired
-    private HotelRepository HotelRepo;
+    private HotelRepository hotelRepo;
 	
 	@Autowired
-    private HotelReservationRepository reservationRepository;
+    private HotelReservationRepository reservationRepo;
 
 	@GetMapping("/hotelsList")
 	public List<HotelModel> getListofHotels(Model model) {
-		List<HotelModel> hotelList = HotelRepo.findAll();
+		List<HotelModel> hotelList = hotelRepo.findAll();
 		model.addAttribute(hotelList);
 		return hotelList;
 	}
@@ -28,20 +29,27 @@ public class HotelController {
 	@PostMapping("/addHotels")
 	@ResponseBody
 	public String addHotels(@RequestBody HotelModel hotel) {
-		HotelRepo.save(hotel);
+		hotelRepo.save(hotel);
 		return "Added !";
 	}
 	
 	@PostMapping("/reservation")
 	@ResponseBody
-	public HotelReservationModel reservationConfirmation(@RequestBody HotelReservationModel h) {
-		
-		return h;
+	public String reservationConfirmation(@RequestBody HotelReservationModel h ) {
+			
+		HotelReservationModel a=reservationRepo.save(h);
+		return "Reservation confirmation number - "+a.getReservation().getReservationID();
 	}
 	
 	@GetMapping("/reservationList")
-	public String getListofReservations() {
-		return "Reservations";
+	public List<HotelReservationModel> getListofReservations(Model model) {
+		List<HotelReservationModel> reservationList = reservationRepo.findAll(); 
+	    //model.addAttribute(reservationList);
+		//return reservationList;
+		
+		System.out.println(reservationList);
+		return reservationList;
+	
 	}
 	
 	

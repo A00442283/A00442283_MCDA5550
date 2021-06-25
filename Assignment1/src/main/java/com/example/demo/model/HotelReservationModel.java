@@ -7,17 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.example.demo.*;
+
 
 @Entity
 @Table(name = "HotelReservationModel")
 public class HotelReservationModel {
-	
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private final long id;
-	private final String hotel_name;
+	private long id;
+	private String hotel_name;
 	
 	@OneToOne(targetEntity=ReservationModel.class,cascade = {CascadeType.ALL})
 	private ReservationModel reservation;
@@ -26,6 +26,10 @@ public class HotelReservationModel {
 		this.id=0;
 		this.hotel_name = hotel_name;
 		this.setReservation(reservation);
+	}
+	
+	public HotelReservationModel() {
+		
 	}
 	
 	public ReservationModel getReservation() {
@@ -39,6 +43,13 @@ public class HotelReservationModel {
 	}
 	public String getHotel_name() {
 		return hotel_name;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setHotel_name(String hotel_name) {
+		this.hotel_name = hotel_name;
 	}
 
 
