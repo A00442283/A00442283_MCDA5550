@@ -49,8 +49,7 @@ public class HotelController {
 		List<HotelReservationModel> reservationList = reservationRepo.findAll(); 
 	    //model.addAttribute(reservationList);
 		//return reservationList;
-		
-		System.out.println(reservationList);
+	
 		return reservationList;
 	
 	}

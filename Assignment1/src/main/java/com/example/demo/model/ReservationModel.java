@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import com.example.demo.model.*;
 
 @Entity
@@ -13,18 +16,20 @@ import com.example.demo.model.*;
 public class ReservationModel {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int reservationID;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String reservationID;
+	
 	private Date checkin;
 	private Date checkout;
 	
 	@OneToMany(targetEntity=GuestModel.class,cascade = {CascadeType.ALL})
 	private List<GuestModel> guests_list;
 	
-	public int getReservationID() {
+	public String getReservationID() {
 		return reservationID;
 	}
-	public void setReservationID(int reservationID) {
+	public void setReservationID(String reservationID) {
 		this.reservationID = reservationID;
 	}
 	public Date getCheckin() {

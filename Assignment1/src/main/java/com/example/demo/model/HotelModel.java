@@ -13,8 +13,7 @@ public class HotelModel {
 	String hotel_name;
 	Boolean availability;
 	int price;
-	
-	
+		
 	public String getHotel_name() {
 		return hotel_name;
 	}
