@@ -18,6 +18,9 @@ public class HotelController {
 	
 	@Autowired
     private HotelReservationRepository reservationRepo;
+	
+	@Autowired
+    private ReservationRepository resRepo;
 
 	@GetMapping("/hotelsList")
 	public List<HotelModel> getListofHotels(Model model) {
@@ -52,6 +55,16 @@ public class HotelController {
 	
 	}
 	
+	@GetMapping("/reservations")
+	public List<ReservationModel> getReservations(Model model) {
+		List<ReservationModel> reservationList = resRepo.findAll(); 
+	    //model.addAttribute(reservationList);
+		//return reservationList;
+		
+		System.out.println(reservationList);
+		return reservationList;
+	
+	}
 	
 
 }

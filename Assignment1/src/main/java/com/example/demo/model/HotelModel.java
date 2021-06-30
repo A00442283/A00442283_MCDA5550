@@ -14,6 +14,7 @@ public class HotelModel {
 	Boolean availability;
 	int price;
 	
+	
 	public String getHotel_name() {
 		return hotel_name;
 	}
