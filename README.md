@@ -10,6 +10,9 @@ URL -> http://hotelreservation-env.eba-y5iiasyg.us-east-1.elasticbeanstalk.com/h
 ### API Call 2 - POST Hotel Reservation
 URL -> http://hotelreservation-env.eba-y5iiasyg.us-east-1.elasticbeanstalk.com/reservation
 
+![image](https://user-images.githubusercontent.com/77292688/124045797-d5f15300-d9e6-11eb-9474-df5af07ea3d1.png)
+
+
 #### Sample Request Body
 ```
 { 
@@ -32,6 +35,9 @@ URL -> http://hotelreservation-env.eba-y5iiasyg.us-east-1.elasticbeanstalk.com/r
     
 }
 ```
+
+![image](https://user-images.githubusercontent.com/77292688/124045690-90348a80-d9e6-11eb-8ecc-2129b4dfece9.png)
+
 
 
 ### API Call 3 - POST Hotel 
