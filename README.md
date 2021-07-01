@@ -21,11 +21,11 @@ URL -> http://hotelreservation-env.eba-y5iiasyg.us-east-1.elasticbeanstalk.com/r
     "guests_list":[
            {
               "guest_name":"Maria",
-              "gender":"FEMALE"
+              "gender":"Female"
             },    
             {
               "guest_name":"Alex",
-              "gender":"MALE"
+              "gender":"Male"
             }
         ]
     } 
