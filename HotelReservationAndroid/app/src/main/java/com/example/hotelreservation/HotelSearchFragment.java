@@ -3,6 +3,7 @@ package com.example.hotelreservation;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -46,6 +50,25 @@ public class HotelSearchFragment extends Fragment {
     RadioButton radioFemale;
     RadioButton radioMale;
     RadioButton radioBtn;
+    TextView hotel;
+    String hotelName;
+
+    public static HotelSearchFragment newInstance(String hotel_name) {
+        HotelSearchFragment fragment=new HotelSearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("hotelName",hotel_name);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(getArguments() != null){
+            hotelName=getArguments().getString("hotelName");
+        }
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +88,9 @@ public class HotelSearchFragment extends Fragment {
         guestList = view.findViewById(R.id.guest_list_view);
         guestName = view.findViewById(R.id.guest_name);
         radioGender = view.findViewById(R.id.radio_gender);
+        hotel = view.findViewById(R.id.hotel_name_selected);
+
+        hotel.setText(hotelName);
         //radioFemale = view.findViewById(R.id.female_radio_btn);
         //radioMale=view.findViewById(R.id.male_radio_btn);
 
@@ -82,17 +108,25 @@ public class HotelSearchFragment extends Fragment {
 
 
                 ReservationModel reservation = new ReservationModel(checkInDate.getText().toString(),checkOutDate.getText().toString(), guestArrayList);
-                HotelReservationModel hotelReservation = new HotelReservationModel("ABC",reservation);
-                Api.getClient().createReservation(hotelReservation, new Callback<HotelReservationModel>() {
+                HotelReservationModel hotelReservation = new HotelReservationModel(hotel.getText().toString(),reservation);
+
+                Api.getClient().createReservation(new Gson().toJson(hotelReservation), new Callback<ReservationResponse>() {
                     @Override
-                    public void success(HotelReservationModel hotelReservationModel, Response response) {
-                        System.out.println("Successful");
+                    public void success(ReservationResponse reservationResponse, Response response) {
+
+                        Toast toast = Toast.makeText(getContext(),"Confirmation Number "+reservationResponse.getConfirmation_number() , Toast.LENGTH_LONG);
+                        toast.show();
+
+                        System.out.println(reservationResponse.getConfirmation_number());
+                        Log.d("Response",response.toString());
+
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         System.out.println(error.getMessage());
                     }
+
                 });
 
                 checkInDate.setText("");

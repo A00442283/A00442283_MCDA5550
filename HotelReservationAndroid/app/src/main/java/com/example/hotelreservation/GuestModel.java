@@ -2,7 +2,6 @@ package com.example.hotelreservation;
 
 public class GuestModel {
 
-    private int id;
     private String guest_name;
     private String gender;
 

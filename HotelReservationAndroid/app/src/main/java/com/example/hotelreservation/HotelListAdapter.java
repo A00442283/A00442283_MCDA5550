@@ -19,12 +19,21 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
 
     private List<HotelListModel> hotelListData;
     private LayoutInflater layoutInflater;
+    private ItemClickListener clickListener;
 
     //Data gets passed in the constructor
-    HotelListAdapter(Context context, List<HotelListModel> hotelListData){
-        this.layoutInflater = LayoutInflater.from(context);
+
+    HotelListAdapter(Context context,List<HotelListModel> hotelListData) {
         this.hotelListData = hotelListData;
+        this.layoutInflater = layoutInflater.from(context);
     }
+
+    HotelListAdapter(Context context,List<HotelListModel> hotelListData, ItemClickListener clickListener) {
+        this.hotelListData = hotelListData;
+        this.layoutInflater = layoutInflater.from(context);
+        this.clickListener = clickListener;
+    }
+
 
     @NonNull
     @Override
@@ -43,6 +52,13 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.hotelName.setText(hotelName);
         holder.hotelAvailability.setText(hotelAvailability);
         holder.hotelPrice.setText(hotelPrice);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(hotelListData.get(position));
+            }
+        });
     }
 
     @Override
@@ -72,5 +88,9 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             });
 
         }
+    }
+
+    public interface ItemClickListener{
+        public void onItemClick(HotelListModel hotelList);
     }
 }

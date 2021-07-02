@@ -1,6 +1,7 @@
 package com.example.hotelreservation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +22,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class HotelListFragment extends Fragment {
+public class HotelListFragment extends Fragment implements HotelListAdapter.ItemClickListener {
 
     View view;
     ProgressBar progressBar;
@@ -41,6 +43,11 @@ public class HotelListFragment extends Fragment {
 
     }
 
+    public static HotelListFragment newInstance(String hotel_name) {
+        HotelListFragment fragment=new HotelListFragment();
+        return fragment;
+    }
+
     private void getHotelData(){
         progressBar.setVisibility(View.VISIBLE);
         Api.getClient().getHotelList(new Callback<List<HotelListModel>>() {
@@ -51,7 +58,7 @@ public class HotelListFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 RecyclerView recyclerView = view.findViewById(R.id.hotels_list_recycler_view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(), hotelData);
+                HotelListAdapter hotelListAdapter = new HotelListAdapter(getActivity(),hotelData,HotelListFragment.this::onItemClick);
                 recyclerView.setAdapter(hotelListAdapter);
 
             }
@@ -64,6 +71,8 @@ public class HotelListFragment extends Fragment {
         });
     }
 
+
+
     public ArrayList<HotelListModel> initHotelListData() {
         ArrayList<HotelListModel> list = new ArrayList<>();
 
@@ -72,4 +81,17 @@ public class HotelListFragment extends Fragment {
 
         return list;
     }
+
+    @Override
+    public void onItemClick(HotelListModel hotelModel) {
+
+        System.out.println("helowwww");
+        Fragment fragment = HotelSearchFragment.newInstance(hotelModel.getHotel_name());
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
 }

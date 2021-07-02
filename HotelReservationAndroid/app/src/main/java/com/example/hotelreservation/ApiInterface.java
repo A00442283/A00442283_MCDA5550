@@ -1,5 +1,7 @@
 package com.example.hotelreservation;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 //import okhttp3.Call;
@@ -21,8 +23,8 @@ public interface ApiInterface {
 
 
     //Callback<HotelReservationModel> createReservation(Callback<List<HotelListModel>> listCallback);
-
+    @Headers("Content-Type: application/json")
     @POST("/reservation")
-    void createReservation(@Body HotelReservationModel reservation, Callback<HotelReservationModel> callback);
+    void createReservation(@Body String reservation, Callback<ReservationResponse> callback);
 
 }
