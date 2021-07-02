@@ -13,7 +13,7 @@ import android.widget.DatePicker;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
 
@@ -60,8 +60,4 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        
-    }
 }

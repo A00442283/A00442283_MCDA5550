@@ -26,8 +26,8 @@ public class GuestModel {
 	public GenderModel getGender() {
 		return gender;
 	}
-	public void setGender(GenderModel gender) {
-		this.gender = gender;
+	public void setGender(String gender) {
+		this.gender = GenderModel.valueOf(gender);
 	}
 
 }

@@ -1,12 +1,15 @@
 package com.example.hotelreservation;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -59,6 +62,14 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             hotelName = itemView.findViewById(R.id.hotel_name);
             hotelPrice = itemView.findViewById(R.id.price);
             hotelAvailability = itemView.findViewById(R.id.availability);
+
+            itemView.findViewById(R.id.book_hotel).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("hotel_name",hotelName.getText().toString());
+                }
+            });
 
         }
     }
