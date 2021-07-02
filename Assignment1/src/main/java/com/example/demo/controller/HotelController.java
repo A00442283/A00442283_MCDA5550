@@ -2,12 +2,15 @@ package com.example.demo.controller;
 
 import java.util.*;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 @RestController
@@ -36,12 +39,27 @@ public class HotelController {
 		return "Added !";
 	}
 	
-	@PostMapping("/reservation")
+	private String removeQuotesAndUnescape(String uncleanJson) {
+	    String noQuotes = uncleanJson.replaceAll("^\"|\"$", "");
+
+	    return StringEscapeUtils.unescapeJava(noQuotes);
+	}
+	
+	
+	@PostMapping(value="/reservation")
 	@ResponseBody
-	public String reservationConfirmation(@RequestBody HotelReservationModel h ) {
+	public String reservationConfirmation(@RequestBody String h ) {
 			
-		HotelReservationModel a=reservationRepo.save(h);
-		return "Reservation confirmation number - "+a.getReservation().getReservationID();
+		//Gson gson = new Gson();
+		Gson gson=new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+		System.out.println(removeQuotesAndUnescape(h));
+		HotelReservationModel hotelData = gson.fromJson(removeQuotesAndUnescape(h), HotelReservationModel.class);
+		System.out.println(hotelData);
+		HotelReservationModel a=reservationRepo.save(hotelData);
+		
+		ReservationResponse r = new ReservationResponse(a.getReservation().getReservationID());
+
+		return gson.toJson(r);
 	}
 	
 	@GetMapping("/reservationList")
