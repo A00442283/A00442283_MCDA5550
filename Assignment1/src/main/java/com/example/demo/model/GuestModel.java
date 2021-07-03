@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+//Guest Model to store the guest details
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

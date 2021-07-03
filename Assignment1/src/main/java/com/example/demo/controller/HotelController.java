@@ -25,6 +25,7 @@ public class HotelController {
 	@Autowired
     private ReservationRepository resRepo;
 
+	//Displays the list of hotels
 	@GetMapping("/hotelsList")
 	public List<HotelModel> getListofHotels(Model model) {
 		List<HotelModel> hotelList = hotelRepo.findAll();
@@ -32,6 +33,7 @@ public class HotelController {
 		return hotelList;
 	}
 	
+	//Adds hotels
 	@PostMapping("/addHotels")
 	@ResponseBody
 	public String addHotels(@RequestBody HotelModel hotel) {
@@ -39,6 +41,7 @@ public class HotelController {
 		return "Added !";
 	}
 	
+	//Function to clean incoming json from Android app	
 	private String removeQuotesAndUnescape(String uncleanJson) {
 	    String noQuotes = uncleanJson.replaceAll("^\"|\"$", "");
 
@@ -46,6 +49,7 @@ public class HotelController {
 	}
 	
 	
+	//Funtion to make reservation
 	@PostMapping(value="/reservation")
 	@ResponseBody
 	public String reservationConfirmation(@RequestBody String h ) {
@@ -62,6 +66,7 @@ public class HotelController {
 		return gson.toJson(r);
 	}
 	
+	//Displays all the reservations	
 	@GetMapping("/reservationList")
 	public List<HotelReservationModel> getListofReservations(Model model) {
 		List<HotelReservationModel> reservationList = reservationRepo.findAll(); 

@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+//For json Response for returning response in terms of confirmation 
+
 public class ReservationResponse {
 	
 	private String confirmation_number;

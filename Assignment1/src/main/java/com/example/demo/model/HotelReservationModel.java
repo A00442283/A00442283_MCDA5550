@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.example.demo.*;
 
-
+//Hotel Reservation Model stores hotel name and reservations
 @Entity
 @Table(name = "HotelReservationModel")
 public class HotelReservationModel {

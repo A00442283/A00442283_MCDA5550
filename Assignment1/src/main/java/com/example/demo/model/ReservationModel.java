@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.example.demo.model.*;
 
+//Reservation Model reservation id, check in and check out details and guest list
 @Entity
 @Table(name = "ReservationModel")
 public class ReservationModel {

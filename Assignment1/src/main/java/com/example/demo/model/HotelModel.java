@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-
+//Hotel Model stores hotel details
 import javax.persistence.*;
 
 @Entity
