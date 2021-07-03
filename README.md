@@ -41,7 +41,8 @@ Post the reservation details which includes Hotel Name, Reservation, Check In, C
 }
 ```
 
-![image](https://user-images.githubusercontent.com/77292688/124045690-90348a80-d9e6-11eb-8ecc-2129b4dfece9.png)
+![image](https://user-images.githubusercontent.com/77292688/124338362-e7209800-db7d-11eb-87ca-3b0d7547dcf7.png)
+
 
 
 ### API Call 3 - POST Hotel 
