@@ -79,14 +79,6 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             hotelPrice = itemView.findViewById(R.id.price);
             hotelAvailability = itemView.findViewById(R.id.availability);
 
-            itemView.findViewById(R.id.book_hotel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("hotel_name",hotelName.getText().toString());
-                }
-            });
-
         }
     }
 

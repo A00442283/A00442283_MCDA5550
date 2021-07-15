@@ -11,16 +11,10 @@
         android:title="Search"
         android:icon="@drawable/ic_search"/>
 
-    <item
-        android:id="@+id/book"
-        android:title="Book"
-        android:icon="@drawable/ic_book_online"/>
 
     <item
         android:id="@+id/booked"
-        android:title="Booked"
-        android:icon="@drawable/ic_person"/>
-
-
+        android:title="Hotels"
+        android:icon="@drawable/ic_hotel"/>
 
 </menu>

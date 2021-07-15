@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigationView = findViewById(R.id.navbar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,new HotelSearchFragment()).commit();
+        navigationView.setSelectedItemId(R.id.search);
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -39,15 +39,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.search:
-                        fragment=new HotelListFragment();
-                        break;
-
-                    case R.id.book:
                         fragment=new HotelSearchFragment();
                         break;
 
                     case R.id.booked:
-                        fragment=null;
+                        fragment=new HotelListFragment();
                         break;
                 }
 

@@ -2,6 +2,7 @@ package com.example.hotelreservation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,14 +34,15 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import android.content.Context;
 
 public class HotelSearchFragment extends Fragment {
     ArrayList<GuestModel> list;
     List<GuestModel> guestArrayList = new ArrayList<>();;
     ArrayAdapter<GuestModel> arrayAdapter;
     View view;
-    Button searchHotel, bookNext;
-    EditText checkInDate,checkOutDate,guestName;
+    Button searchHotel, bookNext, clear;
+    EditText guestName,guestNumber;
     DatePickerDialog.OnDateSetListener dateSetListenerCheckIn, dateSetListenerCheckOut;
     String currentDateString;
     ListView guestList;
@@ -50,8 +52,13 @@ public class HotelSearchFragment extends Fragment {
     RadioButton radioFemale;
     RadioButton radioMale;
     RadioButton radioBtn;
-    TextView hotel;
+    TextView hotel,checkInDate,checkOutDate;
     String hotelName;
+
+    SharedPreferences sharedPreferences;
+    public static final String myPreference = "myPref";
+    public static final String name = "nameKey";
+    public static final String guestsCount = "guestsCount";
 
     public static HotelSearchFragment newInstance(String hotel_name) {
         HotelSearchFragment fragment=new HotelSearchFragment();
@@ -80,25 +87,28 @@ public class HotelSearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        searchHotel = view.findViewById(R.id.search_hotel);
+        clear = view.findViewById(R.id.clear);
         bookNext = view.findViewById(R.id.book_next);
         checkInDate = view.findViewById(R.id.check_in_date);
         checkOutDate = view.findViewById(R.id.check_out_date);
-        addGuest = view.findViewById(R.id.add_guest_btn);
-        guestList = view.findViewById(R.id.guest_list_view);
-        guestName = view.findViewById(R.id.guest_name);
-        radioGender = view.findViewById(R.id.radio_gender);
+        //addGuest = view.findViewById(R.id.add_guest_btn);
+        //guestList = view.findViewById(R.id.guest_list_view);
+        //guestName = view.findViewById(R.id.guest_name);
+        //radioGender = view.findViewById(R.id.radio_gender);
         hotel = view.findViewById(R.id.hotel_name_selected);
+        guestNumber = view.findViewById(R.id.guest_number);
+        guestName = view.findViewById(R.id.name);
 
         hotel.setText(hotelName);
         //radioFemale = view.findViewById(R.id.female_radio_btn);
         //radioMale=view.findViewById(R.id.male_radio_btn);
 
         list = new ArrayList<GuestModel>();
-        guestAdapter = new GuestListAdapter(getContext(),R.layout.guest_list_layout);
-        guestList.setAdapter(guestAdapter);
+        //guestAdapter = new GuestListAdapter(getContext(),R.layout.guest_list_layout);
+        //guestList.setAdapter(guestAdapter);
         //arrayAdapter = new ArrayAdapter<GuestModel>(getContext(), R.layout.guest_list_layout,list);
 
+        /*
         bookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +141,7 @@ public class HotelSearchFragment extends Fragment {
 
                 checkInDate.setText("");
                 checkOutDate.setText("");
+                guestNumber.setText("");
                 guestList.setAdapter(null);
 
             }
@@ -158,6 +169,8 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
+
+         */
         checkInDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,11 +201,16 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
-        searchHotel.setOnClickListener(new View.OnClickListener() {
+        bookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HotelListFragment hotelsListFragment = new HotelListFragment();
 
+                sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(name, guestName.getText().toString());
+                editor.putString(guestsCount, guestNumber.getText().toString());
+                editor.commit();
 
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout, hotelsListFragment);
@@ -202,16 +220,22 @@ public class HotelSearchFragment extends Fragment {
             }
         });
 
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkInDate.setText("");
+                checkOutDate.setText("");
+                guestNumber.setText("");
+            }
+        });
+
         dateSetListenerCheckIn = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 currentDateString = dayOfMonth + "/" + month + "/" + year;
-
                 checkInDate.setText(currentDateString);
-
             }
-
         };
 
         dateSetListenerCheckOut = new DatePickerDialog.OnDateSetListener() {
@@ -219,11 +243,8 @@ public class HotelSearchFragment extends Fragment {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
                 currentDateString = dayOfMonth + "/" + month + "/" + year;
-
                 checkOutDate.setText(currentDateString);
-
             }
-
         };
 
 
