@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 
@@ -109,13 +110,24 @@ public class GuestFragment extends Fragment {
 
                     @Override
                     public void success(ReservationResponse reservationResponse, Response response) {
-                        Toast toast = Toast.makeText(getContext(),"Confirmation Number "+reservationResponse.getConfirmation_number() , Toast.LENGTH_LONG);
-                        toast.show();
+                        //Toast toast = Toast.makeText(getContext(),"Confirmation Number "+reservationResponse.getConfirmation_number() , Toast.LENGTH_LONG);
+                        //toast.show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("confirmationKey",reservationResponse.getConfirmation_number());
+
+                        ConfirmedBookingFragment confirmationFragment = new ConfirmedBookingFragment();
+                        confirmationFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frame_layout,confirmationFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        System.out.println(error.getMessage());
+                        Toast toast = Toast.makeText(getContext(),error.getMessage() , Toast.LENGTH_LONG);
+                        toast.show();
 
                     }
                 });
