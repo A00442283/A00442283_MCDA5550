@@ -46,18 +46,14 @@ public class HotelSearchFragment extends Fragment {
     DatePickerDialog.OnDateSetListener dateSetListenerCheckIn, dateSetListenerCheckOut;
     String currentDateString;
     ListView guestList;
-    Button addGuest;
-    GuestListAdapter guestAdapter;
-    RadioGroup radioGender;
-    RadioButton radioFemale;
-    RadioButton radioMale;
-    RadioButton radioBtn;
     TextView hotel,checkInDate,checkOutDate;
     String hotelName;
 
     SharedPreferences sharedPreferences;
     public static final String myPreference = "myPref";
     public static final String name = "nameKey";
+    public static final String checkIn = "checkIn";
+    public static final String checkOut = "checkOut";
     public static final String guestsCount = "guestsCount";
 
     public static HotelSearchFragment newInstance(String hotel_name) {
@@ -210,6 +206,8 @@ public class HotelSearchFragment extends Fragment {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(name, guestName.getText().toString());
                 editor.putString(guestsCount, guestNumber.getText().toString());
+                editor.putString(checkIn, checkInDate.getText().toString());
+                editor.putString(checkOut, checkOutDate.getText().toString());
                 editor.commit();
 
                 FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();

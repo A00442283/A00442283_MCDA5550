@@ -39,7 +39,6 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
     TextView checkIn, checkOut, checkInSelected, checkOutSelected,nameText,nameSelected, guestNumber, guestNumberSelected;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        System.out.println(container);
         view = inflater.inflate(R.layout.hotel_list_fragment,container,false);
         return view;
     }
@@ -101,7 +100,7 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
     @Override
     public void onItemClick(HotelListModel hotelModel) {
 
-        Fragment fragment = HotelSearchFragment.newInstance(hotelModel.getHotel_name());
+        Fragment fragment = GuestFragment.newInstance(hotelModel.getHotel_name());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout,fragment);
         transaction.addToBackStack(null);
