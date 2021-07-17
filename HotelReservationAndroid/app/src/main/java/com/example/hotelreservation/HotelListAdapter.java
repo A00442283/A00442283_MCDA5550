@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.hotelAvailability.setText(hotelAvailability);
         holder.hotelPrice.setText(hotelPrice);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.hotelSelectNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.onItemClick(hotelListData.get(position));
@@ -73,11 +74,13 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView hotelName, hotelPrice, hotelAvailability;
+        Button hotelSelectNext;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             hotelName = itemView.findViewById(R.id.hotel_name);
             hotelPrice = itemView.findViewById(R.id.price);
             hotelAvailability = itemView.findViewById(R.id.availability);
+            hotelSelectNext = itemView.findViewById(R.id.select_hotel_option);
 
         }
     }

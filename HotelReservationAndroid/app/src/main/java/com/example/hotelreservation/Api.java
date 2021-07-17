@@ -8,6 +8,7 @@ public class Api {
 
     public static ApiInterface getClient() {
 
+        //SET ENDS POINT TO AWS ELASTIC BEANSTALK
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint("http://10.0.2.2:8080")
                 .build();

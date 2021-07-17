@@ -15,14 +15,12 @@ import retrofit.http.POST;
 
 public interface ApiInterface {
 
+    //GET REQUEST FOR DISPLAYING THE HOTELS LIST
     @GET("/hotelsList")
     public void getHotelList(Callback<List<HotelListModel>> callback);
 
 
-    //public void createReservation(@Body HotelReservationModel reservation,Callback<HotelReservationModel> callback);
-
-
-    //Callback<HotelReservationModel> createReservation(Callback<List<HotelListModel>> listCallback);
+    //POST REQUEST FOR MAKING RESERVATIONS
     @Headers("Content-Type: application/json")
     @POST("/reservation")
     void createReservation(@Body String reservation, Callback<ReservationResponse> callback);

@@ -32,11 +32,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class GuestFragment extends Fragment {
-    TextView checkOutDateSelected, checkInDateSelected, guestName, guestCount,hotelSelected;
+    TextView checkOutDateSelected, checkInDateSelected, guestName, guestCount,hotelSelected,guestSelectedName;
     List<GuestModel> guestArrayList= new ArrayList<GuestModel>();
     ArrayList<GuestModel> list;
     View view;
-    Button addGuest;
+    Button addGuest,clear;
     GuestListAdapter guestAdapter;
     RadioGroup radioGender;
     RadioButton radioFemale;
@@ -44,7 +44,7 @@ public class GuestFragment extends Fragment {
     RadioButton radioBtn;
     ListView guestList;
     ArrayAdapter<GuestModel> arrayAdapter;
-    Button bookNext, clear;
+    Button bookNext;
     String hotelName;
 
     SharedPreferences sharedPreferences;
@@ -84,8 +84,9 @@ public class GuestFragment extends Fragment {
         guestCount = view.findViewById(R.id.selected_count);
 
         addGuest = view.findViewById(R.id.add_guest_btn);
+        clear = view.findViewById(R.id.clear_guests);
         //guestList = view.findViewById(R.id.guest_list_view);
-        guestName = view.findViewById(R.id.guest_name);
+        guestSelectedName = view.findViewById(R.id.guest_name);
         radioGender = view.findViewById(R.id.radio_gender);
         radioFemale = view.findViewById(R.id.female_radio_btn);
         radioMale=view.findViewById(R.id.male_radio_btn);
@@ -97,6 +98,8 @@ public class GuestFragment extends Fragment {
         guestCount.setText(sharedPreferences.getString(guestsCount,""));
         guestName.setText(sharedPreferences.getString(nameKey,""));
         hotelSelected.setText(sharedPreferences.getString(hotelName,""));
+
+        guestSelectedName.setText(sharedPreferences.getString(nameKey,""));
 
 
 
@@ -159,8 +162,23 @@ public class GuestFragment extends Fragment {
 
                 //list.add(new GuestModel(guest,"Female"));
 
-                guestName.setText("");
+                guestSelectedName.setText("");
                 //guestList.setAdapter(arrayAdapter);
+
+
+            }
+        });
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                guestArrayList.clear();
+
+                RecyclerView recyclerView = view.findViewById(R.id.guest_list_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                GuestListAdapter guestListAdapter = new GuestListAdapter(getActivity(),guestArrayList);
+                recyclerView.setAdapter(guestListAdapter);
 
 
             }

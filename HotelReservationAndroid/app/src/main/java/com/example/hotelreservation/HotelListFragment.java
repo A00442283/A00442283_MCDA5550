@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,8 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
     public static final String checkOutKey = "checkOut";
 
     TextView checkIn, checkOut, checkInSelected, checkOutSelected,nameText,nameSelected, guestNumber, guestNumberSelected;
+    //Button hotelSelectNext;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.hotel_list_fragment,container,false);
@@ -53,6 +56,7 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
         checkInSelected = view.findViewById(R.id.check_in_date_selected);
         checkOutSelected = view.findViewById(R.id.check_out_date_selected);
         guestNumberSelected = view.findViewById(R.id.guest_number_selected);
+        //hotelSelectNext = view.findViewById(R.id.select_hotel_option);
 
         getSharedPref();
         getHotelData();
@@ -114,14 +118,8 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
 
         sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
 
-        if (sharedPreferences.contains(name)) {
-            nameSelected.setText(sharedPreferences.getString(name, ""));
-        }
-        if (sharedPreferences.contains(guestsCount)) {
-            guestNumberSelected.setText(sharedPreferences.getString(guestsCount, ""));
-
-        }
-
+        nameSelected.setText(sharedPreferences.getString(name, ""));
+        guestNumberSelected.setText(sharedPreferences.getString(guestsCount, ""));
         checkInSelected.setText(sharedPreferences.getString(checkInKey,""));
         checkOutSelected.setText(sharedPreferences.getString(checkOutKey,""));
 

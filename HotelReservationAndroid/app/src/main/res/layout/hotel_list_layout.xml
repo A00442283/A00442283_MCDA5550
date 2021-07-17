@@ -69,16 +69,17 @@
                     android:textSize="20sp"
                     />
 
-                <TextView
-                    android:id="@+id/discount"
+                <Button
+                    android:id="@+id/select_hotel_option"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/price"
-                    android:text="10% discount"
                     android:textSize="15sp"
+                    android:textColorHint="@color/white"
+                    android:hint="SELECT"
                     android:textColor="@color/red"
                     />
 
