@@ -35,6 +35,8 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
     public static final String myPreference = "myPref";
     public static final String name = "nameKey";
     public static final String guestsCount = "guestsCount";
+    public static final String checkInKey = "checkIn";
+    public static final String checkOutKey = "checkOut";
 
     TextView checkIn, checkOut, checkInSelected, checkOutSelected,nameText,nameSelected, guestNumber, guestNumberSelected;
     @Override
@@ -119,6 +121,9 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
             guestNumberSelected.setText(sharedPreferences.getString(guestsCount, ""));
 
         }
+
+        checkInSelected.setText(sharedPreferences.getString(checkInKey,""));
+        checkOutSelected.setText(sharedPreferences.getString(checkOutKey,""));
 
     }
 

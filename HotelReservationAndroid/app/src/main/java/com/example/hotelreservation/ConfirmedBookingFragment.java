@@ -34,7 +34,7 @@ public class ConfirmedBookingFragment extends Fragment{
 
         confirmationDetails = view.findViewById(R.id.confirmation_number);
 
-        confirmationDetails.setText("Booking Successful !! \n"+confirmationNumber);
+        confirmationDetails.setText("Confirmation Number\n"+confirmationNumber);
 
 
 

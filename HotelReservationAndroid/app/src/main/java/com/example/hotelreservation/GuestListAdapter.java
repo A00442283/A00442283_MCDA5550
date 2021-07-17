@@ -9,65 +9,66 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuestListAdapter extends ArrayAdapter<GuestModel> {
+public class GuestListAdapter extends RecyclerView.Adapter<GuestListAdapter.ViewHolder> {
 
-    private List<GuestModel> guestList = new ArrayList<GuestModel>();
+    private List<GuestModel> guestList;
+    private LayoutInflater layoutInflater;
 
-    static class GuestViewHolder {
-        TextView guestName;
-        TextView gender;
-    }
-
-    public GuestListAdapter(@NonNull Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
-    }
-
-    @Override
-    public void add(@Nullable GuestModel object) {
-        guestList.add(object);
-        super.add(object);
-
-    }
-
-    @Override
-    public int getCount() {
-        return this.guestList.size();
-    }
-
-    @Nullable
-    @Override
-    public GuestModel getItem(int position) {
-        return super.getItem(position);
+    GuestListAdapter(Context context,List<GuestModel> GuestListData) {
+        this.guestList= GuestListData;
+        this.layoutInflater = layoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View row = convertView;
-        GuestViewHolder viewHolder;
-        if (row == null) {
-            LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.guest_list_layout, parent, false);
-            viewHolder = new GuestViewHolder();
-            viewHolder.guestName = row.findViewById(R.id.guest_name_text);
-            viewHolder.gender = row.findViewById(R.id.guest_gender_text);
-            row.setTag(viewHolder);
-        } else {
-            viewHolder = (GuestViewHolder)row.getTag();
-        }
-        GuestModel guest = getItem(position);
-        viewHolder.guestName.setText(guest.getGuest_name());
-        viewHolder.gender.setText(guest.getGender());
+    public GuestListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.inflate(R.layout.guest_list_layout, parent, false);
+        return new GuestListAdapter.ViewHolder(view);
 
-        return row;
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull GuestListAdapter.ViewHolder holder, int position) {
+
+        String guestName = guestList.get(position).getGuest_name();
+        String guestGender = guestList.get(position).getGender();
+
+
+        // set up the text
+        holder.guestName.setText(guestName);
+        holder.guestGender.setText(guestGender);
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        if (guestList != null) {
+            return guestList.size();
+        } else {
+            return 0;
+        }
+    }
+
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView guestName,guestGender;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            guestName = itemView.findViewById(R.id.guest_name_text);
+            guestGender = itemView.findViewById(R.id.guest_gender_text);
+
+        }
+    }
 }
 
 

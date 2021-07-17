@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
@@ -30,8 +32,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class GuestFragment extends Fragment {
-    TextView checkOutDateSelected, checkInDateSelected, guestName, guestCount;
-    List<GuestModel> guestArrayList = new ArrayList<>();;
+    TextView checkOutDateSelected, checkInDateSelected, guestName, guestCount,hotelSelected;
+    List<GuestModel> guestArrayList= new ArrayList<GuestModel>();
     ArrayList<GuestModel> list;
     View view;
     Button addGuest;
@@ -75,33 +77,32 @@ public class GuestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        hotelSelected = view.findViewById(R.id.selected_hotel);
         checkInDateSelected = view.findViewById(R.id.selected_check_in);
         checkOutDateSelected = view.findViewById(R.id.selected_check_out);
         guestName = view.findViewById(R.id.selected_name);
         guestCount = view.findViewById(R.id.selected_count);
 
         addGuest = view.findViewById(R.id.add_guest_btn);
-        guestList = view.findViewById(R.id.guest_list_view);
+        //guestList = view.findViewById(R.id.guest_list_view);
         guestName = view.findViewById(R.id.guest_name);
         radioGender = view.findViewById(R.id.radio_gender);
         radioFemale = view.findViewById(R.id.female_radio_btn);
         radioMale=view.findViewById(R.id.male_radio_btn);
         bookNext = view.findViewById(R.id.book_final);
 
-        list = new ArrayList<GuestModel>();
-        guestAdapter = new GuestListAdapter(getContext(),R.layout.guest_list_layout);
-        guestList.setAdapter(guestAdapter);
-        arrayAdapter = new ArrayAdapter<GuestModel>(getContext(), R.layout.guest_list_layout, list);
+        sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
+        checkInDateSelected.setText(sharedPreferences.getString(checkIn,""));
+        checkOutDateSelected.setText(sharedPreferences.getString(checkOut,""));
+        guestCount.setText(sharedPreferences.getString(guestsCount,""));
+        guestName.setText(sharedPreferences.getString(nameKey,""));
+        hotelSelected.setText(sharedPreferences.getString(hotelName,""));
+
+
 
         bookNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < guestAdapter.getCount(); i++){
-                    guestArrayList.add(new GuestModel(guestAdapter.getItem(i).getGuest_name(),guestAdapter.getItem(i).getGender()));
-                }
-
-                sharedPreferences = getActivity().getSharedPreferences(myPreference, Context.MODE_PRIVATE);
-
 
                 ReservationModel reservation = new ReservationModel(sharedPreferences.getString(checkIn,""),sharedPreferences.getString(checkOut,""), guestArrayList);
                 HotelReservationModel hotelReservation = new HotelReservationModel(hotelName,reservation);
@@ -132,9 +133,6 @@ public class GuestFragment extends Fragment {
                     }
                 });
 
-
-                guestList.setAdapter(null);
-
             }
         });
 
@@ -151,11 +149,19 @@ public class GuestFragment extends Fragment {
                 if(radioBtn.getText().toString().equals("M"))
                     gender="Male";
 
+                guestArrayList.add(new GuestModel(guest,gender));
+
+                RecyclerView recyclerView = view.findViewById(R.id.guest_list_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                GuestListAdapter guestListAdapter = new GuestListAdapter(getActivity(),guestArrayList);
+                recyclerView.setAdapter(guestListAdapter);
+
+
                 //list.add(new GuestModel(guest,"Female"));
-                guestAdapter.add(new GuestModel(guest,gender));
+
                 guestName.setText("");
                 //guestList.setAdapter(arrayAdapter);
-                guestAdapter.notifyDataSetChanged();;
+
 
             }
         });
