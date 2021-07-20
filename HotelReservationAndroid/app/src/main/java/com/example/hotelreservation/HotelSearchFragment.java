@@ -36,6 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.Context;
 
+// FOR MAKING BOOKING
 public class HotelSearchFragment extends Fragment {
     ArrayList<GuestModel> list;
     List<GuestModel> guestArrayList = new ArrayList<>();;
@@ -87,86 +88,15 @@ public class HotelSearchFragment extends Fragment {
         bookNext = view.findViewById(R.id.book_next);
         checkInDate = view.findViewById(R.id.check_in_date);
         checkOutDate = view.findViewById(R.id.check_out_date);
-        //addGuest = view.findViewById(R.id.add_guest_btn);
-        //guestList = view.findViewById(R.id.guest_list_view);
-        //guestName = view.findViewById(R.id.guest_name);
-        //radioGender = view.findViewById(R.id.radio_gender);
         hotel = view.findViewById(R.id.hotel_name_selected);
         guestNumber = view.findViewById(R.id.guest_number);
         guestName = view.findViewById(R.id.name);
 
         hotel.setText(hotelName);
-        //radioFemale = view.findViewById(R.id.female_radio_btn);
-        //radioMale=view.findViewById(R.id.male_radio_btn);
+
 
         list = new ArrayList<GuestModel>();
-        //guestAdapter = new GuestListAdapter(getContext(),R.layout.guest_list_layout);
-        //guestList.setAdapter(guestAdapter);
-        //arrayAdapter = new ArrayAdapter<GuestModel>(getContext(), R.layout.guest_list_layout,list);
 
-        /*
-        bookNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(int i = 0; i < guestAdapter.getCount(); i++){
-                    guestArrayList.add(new GuestModel(guestAdapter.getItem(i).getGuest_name(),guestAdapter.getItem(i).getGender()));
-                }
-
-
-                ReservationModel reservation = new ReservationModel(checkInDate.getText().toString(),checkOutDate.getText().toString(), guestArrayList);
-                HotelReservationModel hotelReservation = new HotelReservationModel(hotel.getText().toString(),reservation);
-
-                Api.getClient().createReservation(new Gson().toJson(hotelReservation), new Callback<ReservationResponse>() {
-                    @Override
-                    public void success(ReservationResponse reservationResponse, Response response) {
-
-                        Toast toast = Toast.makeText(getContext(),"Confirmation Number "+reservationResponse.getConfirmation_number() , Toast.LENGTH_LONG);
-                        toast.show();
-
-                        System.out.println(reservationResponse.getConfirmation_number());
-                        Log.d("Response",response.toString());
-
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        System.out.println(error.getMessage());
-                    }
-
-                });
-
-                checkInDate.setText("");
-                checkOutDate.setText("");
-                guestNumber.setText("");
-                guestList.setAdapter(null);
-
-            }
-        });
-
-        addGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String guest = guestName.getText().toString();
-                String gender="Female";
-
-                int selected=radioGender.getCheckedRadioButtonId();
-                radioBtn = view.findViewById(selected);
-
-                if(radioBtn.getText().toString().equals("M"))
-                    gender="Male";
-
-                //list.add(new GuestModel(guest,"Female"));
-                guestAdapter.add(new GuestModel(guest,gender));
-                guestName.setText("");
-                //guestList.setAdapter(arrayAdapter);
-                guestAdapter.notifyDataSetChanged();;
-
-            }
-        });
-
-
-         */
         checkInDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,7 +10,7 @@ public class Api {
 
         //SET ENDS POINT TO AWS ELASTIC BEANSTALK
         RestAdapter adapter = new RestAdapter.Builder()
-                .setEndpoint("http://10.0.2.2:8080")
+                .setEndpoint("http://hotelreservation-env.eba-y5iiasyg.us-east-1.elasticbeanstalk.com")
                 .build();
 
         ApiInterface api = adapter.create(ApiInterface.class);

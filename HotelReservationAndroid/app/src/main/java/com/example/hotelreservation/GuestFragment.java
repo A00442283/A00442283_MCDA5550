@@ -31,6 +31,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+//TAKES GUEST INPUT
 public class GuestFragment extends Fragment {
     TextView checkOutDateSelected, checkInDateSelected, guestName, guestCount,hotelSelected,guestSelectedName;
     List<GuestModel> guestArrayList= new ArrayList<GuestModel>();
@@ -85,7 +86,6 @@ public class GuestFragment extends Fragment {
 
         addGuest = view.findViewById(R.id.add_guest_btn);
         clear = view.findViewById(R.id.clear_guests);
-        //guestList = view.findViewById(R.id.guest_list_view);
         guestSelectedName = view.findViewById(R.id.guest_name);
         radioGender = view.findViewById(R.id.radio_gender);
         radioFemale = view.findViewById(R.id.female_radio_btn);
@@ -130,7 +130,7 @@ public class GuestFragment extends Fragment {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast toast = Toast.makeText(getContext(),error.getMessage() , Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getContext(),error.getMessage() + "Please enter valid details to make confirm reservation", Toast.LENGTH_LONG);
                         toast.show();
 
                     }
@@ -143,7 +143,7 @@ public class GuestFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String guest = guestName.getText().toString();
+                String guest = guestSelectedName.getText().toString();
                 String gender="Female";
 
                 int selected=radioGender.getCheckedRadioButtonId();
@@ -159,11 +159,8 @@ public class GuestFragment extends Fragment {
                 GuestListAdapter guestListAdapter = new GuestListAdapter(getActivity(),guestArrayList);
                 recyclerView.setAdapter(guestListAdapter);
 
-
-                //list.add(new GuestModel(guest,"Female"));
-
                 guestSelectedName.setText("");
-                //guestList.setAdapter(arrayAdapter);
+
 
 
             }

@@ -92,17 +92,6 @@ public class HotelListFragment extends Fragment implements HotelListAdapter.Item
         });
     }
 
-
-    /*
-    public ArrayList<HotelListModel> initHotelListData() {
-        ArrayList<HotelListModel> list = new ArrayList<>();
-
-        list.add(new HotelListModel("Halifax Regional Hotel", "2000$", "true"));
-        list.add(new HotelListModel("Hotel Pearl", "500$", "false"));
-
-        return list;
-    } */
-
     @Override
     public void onItemClick(HotelListModel hotelModel) {
 
